@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7af0a729123e9d04ba392a0fc1d5d1d9, type: 3}
+  m_Name: WoodMetaData
+  m_EditorClassIdentifier: 
+  _id: 0
+  _name: Wood
+  _description: ' Just simple peace of wood'
+  _sprite: {fileID: 21300000, guid: 523fe67bd97c0414e82a4818255cb500, type: 3}
+  _maxItemsInSlot: 5
