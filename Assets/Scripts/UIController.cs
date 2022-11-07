@@ -1,25 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
-    private GameObject _inventory;
+    [SerializeField] private GameObject _UIInventory;
    
 
-    private void Awake()
+    private void Start()
     {
-        _inventory = GetComponentInChildren<Test>().gameObject;
-        _inventory.SetActive(false);
+        _UIInventory.SetActive(false);
     }
 
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
-        {      
-            _inventory.SetActive(!_inventory.activeSelf);
+        {
+            _UIInventory.SetActive(!_UIInventory.activeSelf);
         }
-
     }
 }
