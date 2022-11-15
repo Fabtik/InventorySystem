@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,11 +5,11 @@ public class UISlot : MonoBehaviour, IDropHandler
 {
     [SerializeField] private UIItem _UIItem;
     public ISlot slot { get; private set; }
-    private Inventory _inventory;
+    private UIInventory _inventory;
 
     private void Awake()
     {
-        _inventory = GetComponentInParent<Inventory>();
+        _inventory = GetComponentInParent<UIInventory>();
     }
     public void SetSlot(ISlot slot)
     {

@@ -6,7 +6,7 @@ public class Taker : MonoBehaviour
 {
     [SerializeField] private float _timeBetweenTake = 1f;
 
-    private Inventory _inventory;
+    private UIInventory _inventory;
     private MetaDataStorage _metaDataStorage;
 
 
@@ -14,7 +14,7 @@ public class Taker : MonoBehaviour
 
     private void Awake()
     {
-        _inventory = FindObjectOfType<Inventory>();
+        _inventory = FindObjectOfType<UIInventory>();
         _metaDataStorage = FindObjectOfType<MetaDataStorage>();
     }
 
@@ -44,13 +44,13 @@ public class Taker : MonoBehaviour
     private void RemoveWood()
     {
         var randCount = Random.Range(1, 4);
-        _inventory._inventory.RemoveItemWithID(this, _metaDataStorage.GetMetaDataWithID(0).ID, randCount);
+        _inventory._inventory.RemoveItemWithID(this, 0, randCount);
     }
 
     private void RemoveStone()
     {
         var randCount = Random.Range(1, 4);
-        _inventory._inventory.RemoveItemWithID(this, _metaDataStorage.GetMetaDataWithID(1).ID, randCount);
+        _inventory._inventory.RemoveItemWithID(this, 1, randCount);
     }
 
 }

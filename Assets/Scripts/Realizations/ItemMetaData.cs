@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ItemMetaData", menuName = "MetaData/Create new ItemMetaData")]
@@ -19,5 +17,4 @@ public class ItemMetaData : ScriptableObject, IItemMetaData
     public Sprite sprite => _sprite; 
 
     public int maxItemsInSlot => _maxItemsInSlot; 
- 
 }

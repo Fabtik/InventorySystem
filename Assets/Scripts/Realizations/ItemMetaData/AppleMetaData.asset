@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7af0a729123e9d04ba392a0fc1d5d1d9, type: 3}
-  m_Name: StoneMetaData
+  m_Name: AppleMetaData
   m_EditorClassIdentifier: 
-  _id: 1
-  _name: Stone
-  _description: 'In geology, rock (or stone) is any naturally occurring solid mass
-    or aggregate of minerals or mineraloid matter. '
-  _sprite: {fileID: 21300000, guid: 262c2b28ae3800547b27892ed97f2efa, type: 3}
-  _maxItemsInSlot: 3
+  _id: 2
+  _name: Apple
+  _description: 'You can eat it '
+  _sprite: {fileID: 21300000, guid: bf71aa319a017f74b8d2dbb53a8f9d20, type: 3}
+  _maxItemsInSlot: 1

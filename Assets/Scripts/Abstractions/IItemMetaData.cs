@@ -1,6 +1,4 @@
-
 using UnityEngine;
-
 public interface IItemMetaData 
 {
     public int ID { get; }
@@ -10,6 +8,5 @@ public interface IItemMetaData
     public Sprite sprite { get; }
 
     public int maxItemsInSlot { get; }
-
-    
+ 
 }

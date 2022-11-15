@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 0
   _name: Wood
-  _description: ' Just simple peace of wood'
+  _description: Wood is a porous and fibrous structural tissue found in the stems
+    and roots of trees and other woody plants
   _sprite: {fileID: 21300000, guid: 523fe67bd97c0414e82a4818255cb500, type: 3}
   _maxItemsInSlot: 5

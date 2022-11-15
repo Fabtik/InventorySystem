@@ -1,8 +1,6 @@
- using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-
 public class InventoryWithSlots : IInventory
 {
 
@@ -32,7 +30,6 @@ public class InventoryWithSlots : IInventory
     {
         return _slots.ToArray();
     }
-
     public IItem GetItemWithID(int id) 
     {
         return _slots.Find(slot => slot.itemID == id).item;
@@ -73,6 +70,10 @@ public class InventoryWithSlots : IInventory
 
         return amount;
     }
+    public ISlot[] GetAllSlotsWithItemWithID(int id)
+    {
+        return _slots.FindAll(slot => !slot.isEmpty && slot.itemID == id).ToArray();
+    }
 
     public bool TryToAdd(object sender, IItem item) 
     {
@@ -89,10 +90,7 @@ public class InventoryWithSlots : IInventory
             return TryToAddToSlot(sender, emptySlot, item);
         }
 
-
-       // Debug.Log("item with id - " + item.type + "amount - " + item.state.amount + "cannot be added");
-        return false;
-        
+        return false;       
     }
 
     public bool TryToAddToSlot(object sender, ISlot slot, IItem item)
@@ -115,7 +113,6 @@ public class InventoryWithSlots : IInventory
             slot.item.state.amount += needToAdd;
         }
 
-        Debug.Log("item added to inventory. item - " + item.data.ID + " amount - " + needToAdd);
         OnItemAddedEvent?.Invoke(sender, item, needToAdd);
         OnInventoryChangedEvent?.Invoke(sender);
 
@@ -132,6 +129,25 @@ public class InventoryWithSlots : IInventory
 
     public void DropFromSlotToSlot(object sender, ISlot fromSlot, ISlot toSlot)
     {
+        if (!toSlot.isEmpty && fromSlot.itemID != toSlot.itemID) //
+        {
+            var cloneFrom = fromSlot.item.Clone();
+            var cloneTo = toSlot.item.Clone();
+
+            cloneFrom.state.amount = fromSlot.item.state.amount;
+            cloneTo.state.amount = toSlot.item.state.amount;
+
+            fromSlot.Clear();
+            toSlot.Clear();
+
+            toSlot.SetItem(cloneFrom);
+            fromSlot.SetItem(cloneTo);
+
+            OnInventoryChangedEvent?.Invoke(sender);
+            return;
+        }
+
+
         if (fromSlot.isEmpty)
         {
             return;
@@ -142,10 +158,12 @@ public class InventoryWithSlots : IInventory
             return;
         }
 
-        if(!toSlot.isEmpty && fromSlot.itemID != toSlot.itemID)
+        if (fromSlot == toSlot)
         {
             return;
         }
+
+        
 
         var slotCapacity = fromSlot.capacity;
         var fits = fromSlot.amount + toSlot.amount <= slotCapacity;
@@ -168,6 +186,8 @@ public class InventoryWithSlots : IInventory
         {
             fromSlot.item.state.amount = leftAmount;
         }
+
+
         OnInventoryChangedEvent?.Invoke(sender);
     }
 
@@ -195,8 +215,7 @@ public class InventoryWithSlots : IInventory
                 {
                     slot.Clear();
                 }
-
-                Debug.Log("item removed from inventory. itemid - " + id + " amount - " + needToRemove);
+             
                 OnItemRemovedEvent?.Invoke(sender, id, needToRemove);
                 OnInventoryChangedEvent?.Invoke(sender);
 
@@ -206,16 +225,10 @@ public class InventoryWithSlots : IInventory
             var amountRemoved = slot.amount;
             needToRemove -= slot.amount;
             slot.Clear();
-
-            Debug.Log("item removed from inventory. item - " + id + " amount - " + amountRemoved);
+      
             OnItemRemovedEvent?.Invoke(sender, id, amountRemoved);
             OnInventoryChangedEvent?.Invoke(sender);
         }
-    }
-
-    public ISlot[] GetAllSlotsWithItemWithID(int id)
-    {
-        return _slots.FindAll(slot => !slot.isEmpty && slot.itemID == id).ToArray();
     }
 
     public bool HasItemWithID(int id, out IItem item)

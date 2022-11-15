@@ -1,5 +1,3 @@
-using System;
-
 public interface ISlot
 {
     public bool isFull { get; }

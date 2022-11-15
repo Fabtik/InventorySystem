@@ -1,6 +1,3 @@
-
-using System;
-
 public interface IInventory 
 {
     public int capacity { get; set; }

@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float speed;
-    // Update is called once per frame
+    [SerializeField] private float _speed;
     void Update()
     {
         MovementLogic();
@@ -16,7 +13,7 @@ public class PlayerController : MonoBehaviour
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
 
-        transform.Translate(new Vector3(horizontal, 0, vertical) * speed * Time.deltaTime);
+        transform.Translate(new Vector3(horizontal, 0, vertical) * _speed * Time.deltaTime);
     }
 
 }

@@ -1,5 +1,3 @@
-using System;
-
 public class Slot : ISlot
 {
     public bool isFull => !isEmpty && amount == capacity;

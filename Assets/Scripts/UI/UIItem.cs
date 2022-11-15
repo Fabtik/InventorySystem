@@ -1,25 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class UIItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     private CanvasGroup _canvasGroup;
     private Canvas _mainCanvas;
     private RectTransform _rectTransform;
+    private UISlot _UISlot;
+
+    [SerializeField] private Text _descriptionText;
+    [SerializeField] private Text _nameText;
 
     [SerializeField] private Image _image;
     [SerializeField] private Text _text;
 
     public IItem _item { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
         _mainCanvas = GetComponentInParent<Canvas>();
         _canvasGroup = GetComponent<CanvasGroup>();
+        _UISlot = GetComponentInParent<UISlot>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -61,7 +65,37 @@ public class UIItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHa
             _text.text = slot.amount.ToString();
         }
 
+    }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        _descriptionText.text = _item.data.description;
+        _nameText.text = _item.data.Name;
 
     }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _descriptionText.text = "";
+        _nameText.text = "";
+    }
+
+    
+    public void OnPointerClick(PointerEventData eventData)
+    {
+
+        if (_item.GetType().BaseType == typeof(UsableItem))
+        {
+            Use((UsableItem)_item);
+        }
+       
+    }
+
+    public void Use<T>(T item) where T : UsableItem
+    {
+        item.Use();
+        _UISlot.slot.Clear();
+        _UISlot.Refresh();
+    }
+
 }
